@@ -1,0 +1,107 @@
+# Docker Compose file Reference (https://docs.docker.com/compose/compose-file/)
+
+version: '3'
+
+# Define services
+services:
+  comments-service:
+    build:
+      context: giphyapp/comments # Use an image built from the specified dockerfile
+      dockerfile: Dockerfile
+    ports:
+    - 8080:8080
+    restart: always
+    environment:
+    - MYSQL_HOST=db1
+    - MONGO_HOST=db2
+    - MYSQL_USER=root
+    - MYSQL_PASS=7530002667
+    depends_on:
+    - db2
+  favourite-service:
+    build:
+      context: giphyapp/favourite # Use an image built from the specified dockerfile
+      dockerfile: Dockerfile
+    ports:
+    - 8085:8085
+    restart: always
+    environment:
+    - MYSQL_HOST=db1
+    - MONGO_HOST=db2
+    - MYSQL_USER=root
+    - MYSQL_PASS=7530002667
+    depends_on:
+    - db2
+  gifdetails-service:
+    build:
+      context: giphyapp/gifdetails # Use an image built from the specified dockerfile
+      dockerfile: Dockerfile
+    ports:
+    - 8082:8082
+    restart: always
+    environment:
+    - MYSQL_HOST=db1
+    - MONGO_HOST=db2
+    - MYSQL_USER=root
+    - MYSQL_PASS=7530002667
+    depends_on:
+    - db2
+  login-service:
+    build:
+      context: giphyapp/login_module # Use an image built from the specified dockerfile
+      dockerfile: Dockerfile
+    ports:
+    - 8083:8083
+    restart: always
+    environment:
+    - MYSQL_HOST=db1
+    - MONGO_HOST=db2
+    - MYSQL_USER=root
+    - MYSQL_PASS=7530002667
+    depends_on:
+    - db2
+  recommend-service:
+    build:
+      context: giphyapp/recommend # Use an image built from the specified dockerfile
+      dockerfile: Dockerfile
+    ports:
+    - 8084:8084
+    restart: always
+    environment:
+    - MYSQL_HOST=db1
+    - MONGO_HOST=db2
+    - MYSQL_USER=root
+    - MYSQL_PASS=7530002667
+    depends_on:
+    - db2
+  
+  # Database Service (Mysql)
+  db1:
+    image: mysql:5.7
+    ports:
+    - 3306:3306
+    restart: always
+    environment:
+    - MYSQL_ROOT_PASSWORD=7530002667
+    #- MYSQL_USER=root
+    #- MYSQL_PASSWORD=password
+    - MYSQL_DATABASE=team4project
+    volumes:
+    - db-data:/var/lib/mysql
+  # Database Service (MongoDB)
+  db2:
+    image: mongo
+    ports:
+    - 27017:27017
+    restart: always
+    environment:
+    - MONGO_INITDB_DATABASE=team4project
+    volumes:
+    - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo-js:ro
+    - ./mongo-volume:/data/db
+    depends_on:
+    - db1
+
+# Volumes
+volumes:
+  db-data:
