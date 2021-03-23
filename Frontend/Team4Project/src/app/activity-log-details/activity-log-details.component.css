@@ -1,0 +1,27 @@
+.showGif{
+    position: absolute;
+    top: 10%;
+    left: 80%;
+
+}
+.showGif a img{
+    width:30%; 
+    height:30%;
+    min-width: 50px;
+    min-height: 50px;
+}
+.activityText{
+    width: 70%;
+    word-wrap: break-word;
+}
+.commentCardTable{
+    text-align: center;
+    padding: 1px;
+    width: 100%;
+}
+.fullWidth{
+    width: 90%;
+}
+.commentMain:hover{
+    background-color: rgba(179, 187, 202, 0.514);
+}

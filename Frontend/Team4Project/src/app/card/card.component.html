@@ -1,0 +1,31 @@
+<mat-grid-list cols={{columnCount}} rowHeight="1:1">
+    <mat-grid-tile *ngFor='let data of dataArray'>&nbsp;
+        <mat-card class="card">
+            <!-- <mat-card-title>{{data.title}}</mat-card-title><br/> -->
+            <a (click)="goToCardDetails(data.id)"><img mat-card-image [src]="data.images.downsized.url" /></a>
+            <mat-card-subtitle>
+                <table class="cardTable">
+                    <tr>
+                        <td>
+                            <!-- <a (click)="goToCardDetails(data.id)">
+                                <fa-icon [icon]="faInfo" class='fab fa-angular fa-2x'></fa-icon>
+                            </a>&nbsp;&nbsp;&nbsp; -->
+                            <a *ngIf="favouriteIds.indexOf(data.id)==-1" class="favorite" (click)="addFavourite(data)" matTooltip="Add to favorites">
+                                <fa-icon [icon]="faFav" class='fab fa-angular fa-2x'></fa-icon>
+                            </a>
+                            <a *ngIf="favouriteIds.indexOf(data.id)>=0" class="favorite-added" (click)="removeFavourite(data)" matTooltip="Remove from favorites">
+                                <fa-icon [icon]="faFav" class='fab fa-angular fa-2x' style="color: rgba(236, 11, 49, 0.829);"></fa-icon>
+                            </a>&nbsp;&nbsp;&nbsp;
+                            <a *ngIf="recommendIds.indexOf(data.id)==-1" class="recommend" (click)="addRecommended(data)" matTooltip="Add to Recommended">
+                                <fa-icon [icon]="faRecommend" class='fab fa-angular fa-2x'></fa-icon>
+                            </a>
+                            <a *ngIf="recommendIds.indexOf(data.id)>=0" class="recommend-added" (click)="removeRecommended(data)" matTooltip="Remove from Recommended">
+                                <fa-icon [icon]="faRecommend" class='fab fa-angular fa-2x'></fa-icon>
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+            </mat-card-subtitle>
+        </mat-card>&nbsp;
+    </mat-grid-tile>
+</mat-grid-list>
