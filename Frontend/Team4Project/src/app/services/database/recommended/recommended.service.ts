@@ -18,8 +18,8 @@ export class RecommendedService {
   private userId: string | null = this.loginService.fetchUserId();
   private headers = new HttpHeaders()
     .set('content-type', 'application/json')
-    .set('Access-Control-Allow-Origin', 'http://localhost:8084');
-    // .set('Authorization', `Bearer ${this.bearerToken}`);
+    .set('Access-Control-Allow-Origin', 'http://localhost:8084')
+    .set('Authorization', `Bearer ${this.bearerToken}`);
 
   constructor(private http: HttpClient, private loginService: LoginService, private routerService: RouterService) { }
 

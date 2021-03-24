@@ -4,6 +4,15 @@ version: '3'
 
 # Define services
 services:
+  # Frontend Service 
+  app-client:
+    build:
+      context: Frontend\Team4Project # Use an image built from the specified dockerfile 
+      dockerfile: Dockerfile
+      
+    ports:
+      - "80:80" # Map the exposed port 80 on the container to port 9090 on the host machine
+    restart: always
   comments-service:
     build:
       context: giphyapp/comments # Use an image built from the specified dockerfile

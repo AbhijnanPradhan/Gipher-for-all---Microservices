@@ -19,13 +19,13 @@ export class FavouriteService {
   private userId: string | null = this.loginService.fetchUserId();
   private headers = new HttpHeaders()
     .set('content-type', 'application/json')
-    .set('Access-Control-Allow-Origin', 'http://localhost:8081')
+    .set('Access-Control-Allow-Origin', 'http://localhost:8085')
     .set('Authorization', `Bearer ${this.bearerToken}`);
 
   constructor(private httpClient: HttpClient, private loginService: LoginService) { }
 
   getFavourites() {
-    this.httpClient.get<Array<any>>(`http://localhost:8081/favorites/get?userId=${this.userId}`, { headers: this.headers })
+    this.httpClient.get<Array<any>>(`http://localhost:8085/favorites/get?userId=${this.userId}`, { headers: this.headers })
       .subscribe(data => {
         this.favourites = data;
         console.log("getFavourite");
@@ -37,7 +37,7 @@ export class FavouriteService {
     const headers = {
       headers: new HttpHeaders().set('Authorization', `Bearer ${this.bearerToken}`)
     };
-    this.httpClient.post<any>(`http://localhost:8081/favorites/add?userId=${this.userId}`, data, { headers: this.headers })
+    this.httpClient.post<any>(`http://localhost:8085/favorites/add?userId=${this.userId}`, data, { headers: this.headers })
       .subscribe(data => {
         this.messageSubject.next(data.message);
         if (data.message == "Success") {
@@ -52,7 +52,7 @@ export class FavouriteService {
     const headers = {
       headers: new HttpHeaders().set('Authorization', `Bearer ${this.bearerToken}`)
     };
-    this.httpClient.post<any>(`http://localhost:8081/favorites/remove?userId=${this.userId}`, data, { headers: this.headers })
+    this.httpClient.post<any>(`http://localhost:8085/favorites/remove?userId=${this.userId}`, data, { headers: this.headers })
       .subscribe(data => {
         if (data.message == "Success") {
           this.favourites = this.favourites.filter(item => item.id != data.id);

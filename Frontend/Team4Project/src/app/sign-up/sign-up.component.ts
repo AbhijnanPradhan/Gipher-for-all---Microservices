@@ -11,14 +11,16 @@ import { RouterService } from '../services/router.service';
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent implements OnInit {
+  emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
+  numberPattern = "^[0-9]+$";
   headerFalseSetter: boolean = false;
   username = new FormControl('', [Validators.required]);
   password = new FormControl('', [Validators.required]);
   confirmPassword = new FormControl('', [Validators.required]);
   name = new FormControl('', [Validators.required]);
   dob = new FormControl('', [Validators.required]);
-  email = new FormControl('', [Validators.required]);
-  phone = new FormControl('', [Validators.required]);
+  email = new FormControl('', [Validators.required, Validators.pattern(this.emailPattern)]);
+  phone = new FormControl('', [Validators.required, Validators.pattern(this.numberPattern)]);
   gender = new FormControl();
 
   genderList: string[] = ['Female', 'Male', 'None', 'Rather not say'];
@@ -44,10 +46,10 @@ export class SignUpComponent implements OnInit {
       this.showErrorMessage("Date of Birth cannot be blank");
     else if (this.password.value !== this.confirmPassword.value)
       this.showErrorMessage("Password and Confirm Password not matching.");
-    else if (this.email.value === '')
-      this.showErrorMessage("Email cannot be blank");
-    else if (this.phone.value === '')
-      this.showErrorMessage("Phone number cannot be blank");
+    else if (this.email.value === '' || !this.email.valid)
+      this.showErrorMessage("Email isn't valid");
+    else if (this.phone.value === '' || !this.phone.valid)
+      this.showErrorMessage("Phone number isn't valid");
     else if (this.gender.value === 'Gender' || this.gender.value === '' || !this.gender.value)
       this.showErrorMessage("Please select your gender");
     else {
